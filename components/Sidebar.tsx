@@ -25,8 +25,8 @@ import {
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/symptoms", label: "Symptom Assessment", icon: Activity },
-  { href: "/imaging", label: "X-Ray Analysis", icon: Image },
+  { href: "/symptoms", label: "Health Background Assessment", icon: Activity },
+  { href: "/imaging", label: "Chest X-Ray Analysis", icon: Image },
   { href: "/combined", label: "Combined Assessment", icon: Layers },
   { href: "/dashboard", label: "Results Dashboard", icon: BarChart2 },
 ];

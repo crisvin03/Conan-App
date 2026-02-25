@@ -15,9 +15,9 @@ const symptoms: { key: keyof SymptomFormData; label: string; description: string
   { key: "shortnessOfBreath", label: "Shortness of Breath", description: "Difficulty breathing or breathlessness", category: "Primary Risk Factors" },
   { key: "wheezing", label: "Wheezing", description: "High-pitched whistling sound when breathing", category: "Primary Risk Factors" },
   { key: "yellowFingers", label: "Yellow Fingers", description: "Yellowing of fingertips (nicotine staining)", category: "Primary Risk Factors" },
-  { key: "swallowingDifficulty", label: "Swallowing Difficulty", description: "Trouble swallowing food or liquids", category: "Secondary Symptoms" },
-  { key: "fatigue", label: "Fatigue", description: "Persistent tiredness or lack of energy", category: "Secondary Symptoms" },
-  { key: "chronicDisease", label: "Chronic Disease", description: "Pre-existing chronic health conditions", category: "Secondary Symptoms" },
+  { key: "swallowingDifficulty", label: "Swallowing Difficulty", description: "Trouble swallowing food or liquids", category: "Secondary Factors" },
+  { key: "fatigue", label: "Fatigue", description: "Persistent tiredness or lack of energy", category: "Secondary Factors" },
+  { key: "chronicDisease", label: "Chronic Disease", description: "Pre-existing chronic health conditions", category: "Secondary Factors" },
   { key: "alcoholConsuming", label: "Alcohol Consumption", description: "Regular alcohol use", category: "Lifestyle Factors" },
   { key: "peerPressure", label: "Peer Pressure", description: "Smoking-related social risk behavior", category: "Lifestyle Factors" },
   { key: "allergy", label: "Allergy", description: "Known allergies (respiratory or other)", category: "Lifestyle Factors" },
@@ -31,7 +31,7 @@ const defaultForm: SymptomFormData = {
   peerPressure: false, chronicDisease: false, alcoholConsuming: false,
 };
 
-const categories = ["Primary Risk Factors", "Secondary Symptoms", "Lifestyle Factors"];
+const categories = ["Primary Risk Factors", "Secondary Factors", "Lifestyle Factors"];
 
 export default function SymptomsForm() {
   const router = useRouter();
@@ -69,8 +69,8 @@ export default function SymptomsForm() {
           <Activity className="w-5 h-5 text-white" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-slate-800">Symptom Assessment</h1>
-          <p className="text-sm text-slate-500">Answer YES/NO for each symptom or risk factor</p>
+          <h1 className="text-xl font-bold text-slate-800">Health Background Assessment</h1>
+          <p className="text-sm text-slate-500">Answer YES/NO for each health background and lifestyle risk factor</p>
         </div>
       </div>
 
@@ -80,50 +80,6 @@ export default function SymptomsForm() {
           This assessment is for <strong>screening and awareness purposes only</strong>. It is not a
           medical diagnosis. Consult a healthcare professional for clinical evaluation.
         </p>
-      </div>
-
-      {/* User Info */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <User className="w-4 h-4 text-slate-500" />
-          <h2 className="text-sm font-semibold text-slate-700">Personal Information (Optional)</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">Age</label>
-            <input
-              type="number"
-              min="1" max="120"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="e.g. 45"
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">Gender</label>
-            <select
-              value={gender}
-              onChange={(e) => setGender(e.target.value as "male" | "female" | "")}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-            >
-              <option value="">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">BMI</label>
-            <input
-              type="number"
-              min="10" max="60" step="0.1"
-              value={bmi}
-              onChange={(e) => setBmi(e.target.value)}
-              placeholder="e.g. 24.5"
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-        </div>
       </div>
 
       {/* Symptoms by Category */}

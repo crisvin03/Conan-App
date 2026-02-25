@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/context";
 import { predictFromImaging } from "@/lib/prediction";
-import { Image as ImageIcon, Upload, X, AlertTriangle, ChevronRight, Shield } from "lucide-react";
+import { Image as ImageIcon, Upload, X, AlertTriangle, ChevronRight, Shield, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function ImagingForm() {
@@ -14,6 +14,9 @@ export default function ImagingForm() {
   const [preview, setPreview] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState<"male" | "female" | "">("" );
+  const [bmi, setBmi] = useState("");
 
   const handleFile = (f: File) => {
     if (!f.type.startsWith("image/")) return;

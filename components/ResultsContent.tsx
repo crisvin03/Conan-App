@@ -8,7 +8,7 @@ import ConfidenceBar from "./ConfidenceBar";
 import { cn } from "@/lib/utils";
 import {
   AlertTriangle, ArrowLeft, BarChart2, CheckCircle, ExternalLink,
-  Heart, Cigarette, Stethoscope, TrendingUp, RefreshCw, Home
+  Heart, Cigarette, Stethoscope, TrendingUp, RefreshCw, Home, FlaskConical
 } from "lucide-react";
 import Link from "next/link";
 
@@ -187,10 +187,91 @@ export default function ResultsContent() {
                 <p className="text-sm font-semibold text-blue-700">Screening Recommendations</p>
               </div>
               <ul className="text-sm text-slate-700 space-y-1">
-                <li>• Low-dose CT (LDCT) scan for high-risk individuals aged 50–80</li>
+                <li>• Consult a licensed healthcare professional for a thorough clinical evaluation</li>
+                <li>• Low-dose CT (LDCT) scan — primary screening tool for high-risk individuals aged 50–80</li>
                 <li>• Annual chest X-ray monitoring if recommended by your physician</li>
-                <li>• Pulmonary function tests to assess lung health</li>
+                <li>• Pulmonary function tests to assess overall lung capacity and function</li>
               </ul>
+            </div>
+          )}
+
+          {result.riskLevel === "high" && (
+            <div className="rounded-xl border border-red-200 bg-red-50 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <FlaskConical className="w-4 h-4 text-red-600" />
+                <p className="text-sm font-bold text-red-700">Recommended Next Steps for High-Risk Individuals</p>
+              </div>
+              <p className="text-xs text-red-700 mb-3 leading-relaxed">
+                Your assessment indicates a higher risk level. Please consult a licensed healthcare professional promptly.
+                A doctor may recommend one or more of the following clinical tests:
+              </p>
+              <div className="space-y-3">
+                {[
+                  {
+                    num: "1",
+                    title: "Low-Dose CT (LDCT) Scan",
+                    points: [
+                      "Primary screening tool for high-risk individuals",
+                      "More sensitive than a standard chest X-ray",
+                      "Can detect lung abnormalities at earlier stages",
+                    ],
+                  },
+                  {
+                    num: "2",
+                    title: "Diagnostic Chest CT Scan",
+                    points: [
+                      "Provides more detailed imaging if abnormalities are suspected",
+                    ],
+                  },
+                  {
+                    num: "3",
+                    title: "Pulmonary Function Tests (PFTs)",
+                    points: [
+                      "Assess overall lung capacity and function",
+                      "Helpful in evaluating underlying lung disease",
+                    ],
+                  },
+                  {
+                    num: "4",
+                    title: "PET Scan (if indicated)",
+                    points: [
+                      "Helps determine whether a suspicious nodule is metabolically active",
+                    ],
+                  },
+                  {
+                    num: "5",
+                    title: "Sputum Cytology",
+                    points: [
+                      "Laboratory analysis of mucus to detect abnormal cells",
+                    ],
+                  },
+                  {
+                    num: "6",
+                    title: "Biopsy (if imaging findings require confirmation)",
+                    points: [
+                      "Needle biopsy (CT-guided)",
+                      "Bronchoscopy with tissue sampling",
+                      "Surgical biopsy in select cases",
+                    ],
+                  },
+                ].map(({ num, title, points }) => (
+                  <div key={num} className="flex items-start gap-3 bg-white border border-red-100 rounded-lg p-3">
+                    <span className="w-6 h-6 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {num}
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800 mb-1">{title}</p>
+                      <ul className="space-y-0.5">
+                        {points.map((pt) => (
+                          <li key={pt} className="text-xs text-slate-600 flex items-start gap-1.5">
+                            <span className="text-red-400 mt-0.5">•</span>{pt}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
