@@ -8,10 +8,10 @@ const options = [
   {
     href: "/symptoms",
     icon: Activity,
-    title: "Health Background Assessment",
+    title: "Symptom Assessment",
     subtitle: "Option 1",
     description:
-      "Answer a few questions about your health background and lifestyle factors. Our validated machine learning model analyzes 13 key risk indicators to estimate your potential risk for developing lung cancer, supporting early awareness and proactive health decisions.",
+      "Answer questions about your symptoms and health history. Our model analyzes 13 key risk factors to estimate your lung cancer risk level.",
     color: "from-blue-500 to-blue-700",
     bg: "bg-blue-50",
     border: "border-blue-200",
@@ -21,7 +21,7 @@ const options = [
   {
     href: "/imaging",
     icon: ImageIcon,
-    title: "Chest X-Ray Analysis",
+    title: "X-Ray Analysis",
     subtitle: "Option 2",
     description:
       "Upload a chest X-ray image for AI-assisted analysis. Our imaging model preprocesses and evaluates the scan for potential abnormalities.",
@@ -37,7 +37,7 @@ const options = [
     title: "Combined Assessment",
     subtitle: "Option 3",
     description:
-      "Combine health background with chest X-ray imaging for a more comprehensive integrated risk analysis and prediction.",
+      "Combine symptom data with chest X-ray imaging for a more comprehensive integrated risk analysis and prediction.",
     color: "from-teal-500 to-teal-700",
     bg: "bg-teal-50",
     border: "border-teal-200",
@@ -66,10 +66,12 @@ export default function HomeContent() {
             CONAN App
           </h1>
           <p className="text-blue-100 text-sm md:text-base leading-relaxed mb-2">
-            Lung cancer risk screening tool for awareness and early detection.
+      An AI-assisted lung cancer
+            risk screening tool for awareness and early detection guidance.
           </p>
           <p className="text-blue-200 text-xs mt-4">
-            📍 Predictions are generated using publicly available, anonymized lung cancer patient datasets provided by the National Institutes of Health (NIH). These datasets are carefully curated and de-identified to ensure patient privacy and ethical compliance. Advanced machine learning models, developed and validated using standard clinical evaluation metrics, are applied to identify patterns and generate predictive insights. Model performance is assessed through rigorous validation techniques, including cross-validation and testing on independent datasets, to ensure reliability, robustness, and generalizability of results.
+            📍 Predictions are based on publicly available anonymized lung cancer patient datasets
+            and validated machine learning models.
           </p>
           {user && (
             <p className="mt-4 text-sm text-blue-100">
