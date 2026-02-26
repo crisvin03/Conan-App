@@ -205,6 +205,7 @@ export default function SettingsContent() {
         <h2 className="text-sm font-bold text-slate-700 mb-3">App Information</h2>
         <div className="space-y-1.5 text-xs text-slate-500">
           <div className="flex justify-between"><span>Developer</span><span className="font-medium text-slate-700">Crisvin Habitsuela</span></div>
+          <div className="flex justify-between"><span>Research Authors</span><span className="font-medium text-slate-700">Diana Rose A. Alanib, Selin Feigh J. Gojar, Vennez Therese S. Gadil</span></div>
           <div className="flex justify-between"><span>Version</span><span className="font-medium text-slate-700">1.0.0</span></div>
           <div className="flex justify-between"><span>Build</span><span className="font-medium text-slate-700">February 2026</span></div>
           <div className="flex justify-between"><span>Framework</span><span className="font-medium text-slate-700">Next.js 15 + TailwindCSS</span></div>
