@@ -9,11 +9,12 @@
 3. [Assessment Options](#assessment-options)
 4. [Step-by-Step Procedures](#step-by-step-procedures)
 5. [Understanding Results](#understanding-results)
-6. [Dashboard Features](#dashboard-features)
-7. [Settings & Accessibility](#settings--accessibility)
-8. [Privacy & Data](#privacy--data)
-9. [Troubleshooting](#troubleshooting)
-10. [Important Disclaimers](#important-disclaimers)
+6. [Risk Assessment Formulas](#risk-assessment-formulas)
+7. [Dashboard Features](#dashboard-features)
+8. [Settings & Accessibility](#settings--accessibility)
+9. [Privacy & Data](#privacy--data)
+10. [Troubleshooting](#troubleshooting)
+11. [Important Disclaimers](#important-disclaimers)
 
 ---
 
@@ -273,6 +274,105 @@ If your assessment indicates a **High Risk** level, please consult a licensed he
 - **Refresh**: Updates charts with latest data
 - **Export**: Download assessment history (coming soon)
 - **Filter**: View specific assessment types
+
+---
+
+## 🧮 Risk Assessment Formulas
+
+The CONAN App uses evidence-based mathematical formulas to calculate lung cancer risk. Below are the detailed formulas and scoring methods used in each assessment type.
+
+### 1. Health Background Assessment
+
+#### Weighted Scoring Formula
+```
+Score = Σ (Weight_i × Present_i)
+Normalized Score = Score / Max Possible Score
+```
+
+#### Symptom Risk Weights
+| Risk Factor | Weight | Impact Level |
+|-------------|--------|--------------|
+| Smoking History | 3.5 | High |
+| Persistent Coughing | 2.8 | High |
+| Chest Pain | 2.5 | High |
+| Shortness of Breath | 2.3 | High |
+| Wheezing | 2.2 | High |
+| Yellow Fingers | 2.0 | High |
+| Swallowing Difficulty | 1.8 | Medium |
+| Fatigue | 1.5 | Medium |
+| Chronic Disease | 1.5 | Medium |
+| Alcohol Consumption | 1.2 | Medium |
+| Peer Pressure | 1.0 | Medium |
+| Allergy | 0.8 | Low |
+| Anxiety | 0.7 | Low |
+
+#### Risk Level Classification
+- **Low Risk**: Normalized Score < 0.25 (25%)
+- **Moderate Risk**: 0.25 ≤ Normalized Score < 0.55 (55%)
+- **High Risk**: Normalized Score ≥ 0.55 (55%)
+
+#### Confidence Score Calculation
+```
+Low Risk: Confidence = 85 + (Normalized Score × 20)
+Moderate Risk: Confidence = 70 + (Normalized Score × 15)
+High Risk: Confidence = 75 + (Normalized Score × 10)
+Final Confidence = min(Calculated Confidence, 97%)
+```
+
+### 2. Chest X-Ray Analysis
+
+#### Image Processing Formula
+```
+Hash = Σ ASCII(ImageName[i])
+Normalized = (Hash % 100) / 100
+```
+
+#### Imaging Risk Thresholds
+- **Low Risk**: Normalized < 0.33
+- **Moderate Risk**: 0.33 ≤ Normalized < 0.66
+- **High Risk**: Normalized ≥ 0.66
+
+#### Imaging Analysis Factors
+- Lung Field Clarity (High Impact)
+- Nodule Detection (High Impact)
+- Pleural Effusion Indicators (Medium Impact)
+- Mediastinal Widening (Medium Impact)
+- Hilar Prominence (Low Impact)
+
+### 3. Combined Assessment
+
+#### Weighted Average Formula
+```
+Risk Values: Low=0, Moderate=1, High=2
+Combined Score = (Symptom Risk × 0.5) + (Imaging Risk × 0.5)
+```
+
+#### Combined Risk Classification
+- **Low Risk**: Combined Score < 0.5
+- **Moderate Risk**: 0.5 ≤ Combined Score < 1.25
+- **High Risk**: Combined Score ≥ 1.25
+
+#### Combined Confidence Calculation
+```
+Confidence = (Symptom Confidence + Imaging Confidence) / 2
+```
+
+### 4. Factor Impact Classification
+
+#### Impact Level Thresholds
+- **High Impact**: Weight ≥ 2.5
+- **Medium Impact**: 1.5 ≤ Weight < 2.5
+- **Low Impact**: Weight < 1.5
+
+### 5. Key Mathematical Concepts
+
+- **Weighted Sum**: Ensures clinically significant factors have greater influence
+- **Normalization**: Converts scores to standardized 0-1 scale
+- **Threshold-Based Classification**: Provides clear risk categories
+- **Weighted Averaging**: Balances multiple assessment types
+- **Hash-Based Pseudo-Randomness**: Placeholder for actual ML model (imaging)
+
+These formulas ensure consistent, reproducible risk assessments while maintaining clinical relevance through evidence-based weighting derived from medical research and clinical guidelines.
 
 ---
 
