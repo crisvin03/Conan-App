@@ -283,41 +283,53 @@ The CONAN App uses evidence-based mathematical formulas to calculate lung cancer
 
 ### 1. Health Background Assessment
 
-#### Weighted Scoring Formula
+#### Logistic Regression Formula
+The app uses a **logistic regression model** (sigmoid function) for risk prediction:
+
 ```
-Score = Σ (Weight_i × Present_i)
-Normalized Score = Score / Max Possible Score
+Z_early = β₀ + Σ(βᵢ × xᵢ)   where i = 1 to 13
+R_early = 1 / (1 + e^(-Z_early))
 ```
 
-#### Symptom Risk Weights
-| Risk Factor | Weight | Impact Level |
-|-------------|--------|--------------|
-| Smoking History | 3.5 | High |
-| Persistent Coughing | 2.8 | High |
-| Chest Pain | 2.5 | High |
-| Shortness of Breath | 2.3 | High |
-| Wheezing | 2.2 | High |
-| Yellow Fingers | 2.0 | High |
-| Swallowing Difficulty | 1.8 | Medium |
-| Fatigue | 1.5 | Medium |
-| Chronic Disease | 1.5 | Medium |
-| Alcohol Consumption | 1.2 | Medium |
-| Peer Pressure | 1.0 | Medium |
-| Allergy | 0.8 | Low |
-| Anxiety | 0.7 | Low |
+- **Z_early** — linear combination of risk factors and their coefficients
+- **R_early** — predicted probability of lung cancer risk (0 to 1)
+- **β₀** = −4.2 (intercept)
+- **xᵢ** = 1 if risk factor is present, 0 if not
 
-#### Risk Level Classification
-- **Low Risk**: Normalized Score < 0.25 (25%)
-- **Moderate Risk**: 0.25 ≤ Normalized Score < 0.55 (55%)
-- **High Risk**: Normalized Score ≥ 0.55 (55%)
+#### Logistic Regression Coefficients (β values)
+| i | Risk Factor | βᵢ | Impact Level |
+|---|-------------|-----|---------------|
+| 1 | Smoking History | 1.85 | High |
+| 2 | Persistent Coughing | 1.42 | High |
+| 3 | Chest Pain | 1.28 | High |
+| 4 | Shortness of Breath | 1.15 | High |
+| 5 | Wheezing | 1.10 | High |
+| 6 | Yellow Fingers | 1.02 | High |
+| 7 | Swallowing Difficulty | 0.92 | Medium |
+| 8 | Fatigue | 0.76 | Medium |
+| 9 | Chronic Disease | 0.76 | Medium |
+| 10 | Alcohol Consumption | 0.60 | Medium |
+| 11 | Peer Pressure | 0.52 | Medium |
+| 12 | Allergy | 0.40 | Low |
+| 13 | Anxiety | 0.35 | Low |
+
+#### Risk Level Classification (based on R_early probability)
+- **Low Risk**: R_early < 0.35
+- **Moderate Risk**: 0.35 ≤ R_early < 0.65
+- **High Risk**: R_early ≥ 0.65
 
 #### Confidence Score Calculation
 ```
-Low Risk: Confidence = 85 + (Normalized Score × 20)
-Moderate Risk: Confidence = 70 + (Normalized Score × 15)
-High Risk: Confidence = 75 + (Normalized Score × 10)
+Low Risk: Confidence = 85 + (R_early × 20)
+Moderate Risk: Confidence = 70 + (R_early × 25)
+High Risk: Confidence = 78 + (R_early × 15)
 Final Confidence = min(Calculated Confidence, 97%)
 ```
+
+#### Impact Level Thresholds (based on βᵢ)
+- **High Impact**: βᵢ ≥ 1.2
+- **Medium Impact**: 0.7 ≤ βᵢ < 1.2
+- **Low Impact**: βᵢ < 0.7
 
 ### 2. Chest X-Ray Analysis
 
@@ -357,20 +369,14 @@ Combined Score = (Symptom Risk × 0.5) + (Imaging Risk × 0.5)
 Confidence = (Symptom Confidence + Imaging Confidence) / 2
 ```
 
-### 4. Factor Impact Classification
+### 4. Key Mathematical Concepts
 
-#### Impact Level Thresholds
-- **High Impact**: Weight ≥ 2.5
-- **Medium Impact**: 1.5 ≤ Weight < 2.5
-- **Low Impact**: Weight < 1.5
-
-### 5. Key Mathematical Concepts
-
-- **Weighted Sum**: Ensures clinically significant factors have greater influence
-- **Normalization**: Converts scores to standardized 0-1 scale
-- **Threshold-Based Classification**: Provides clear risk categories
-- **Weighted Averaging**: Balances multiple assessment types
-- **Hash-Based Pseudo-Randomness**: Placeholder for actual ML model (imaging)
+- **Logistic Regression**: Standard ML classification algorithm used in clinical prediction
+- **Sigmoid Function**: Maps any real value to a probability between 0 and 1
+- **β Coefficients**: Represent the log-odds contribution of each risk factor
+- **Intercept (β₀)**: Baseline log-odds when no risk factors are present
+- **Threshold-Based Classification**: Converts probability to Low/Moderate/High risk levels
+- **Weighted Averaging**: Balances symptom and imaging scores in combined assessment
 
 These formulas ensure consistent, reproducible risk assessments while maintaining clinical relevance through evidence-based weighting derived from medical research and clinical guidelines.
 

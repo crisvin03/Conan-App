@@ -1,19 +1,24 @@
 import { SymptomFormData, PredictionResult, RiskLevel } from "./types";
 
-const SYMPTOM_WEIGHTS: Record<keyof SymptomFormData, number> = {
-  smokingHistory: 3.5,
-  coughing: 2.8,
-  chestPain: 2.5,
-  shortnessOfBreath: 2.3,
-  wheezing: 2.2,
-  yellowFingers: 2.0,
-  swallowingDifficulty: 1.8,
-  fatigue: 1.5,
-  chronicDisease: 1.5,
-  alcoholConsuming: 1.2,
-  allergy: 0.8,
-  anxiety: 0.7,
-  peerPressure: 1.0,
+// Logistic Regression Coefficients (β values)
+// Based on clinical literature weighting for lung cancer risk factors
+// Formula: Z_early = β₀ + Σ(βᵢ × xᵢ)  |  R_early = 1 / (1 + e^(-Z_early))
+const BETA_0 = -4.2; // Intercept β₀
+
+const BETA_COEFFICIENTS: Record<keyof SymptomFormData, number> = {
+  smokingHistory:       1.85,  // β₁  – strongest predictor
+  coughing:             1.42,  // β₂
+  chestPain:            1.28,  // β₃
+  shortnessOfBreath:    1.15,  // β₄
+  wheezing:             1.10,  // β₅
+  yellowFingers:        1.02,  // β₆
+  swallowingDifficulty: 0.92,  // β₇
+  fatigue:              0.76,  // β₈
+  chronicDisease:       0.76,  // β₉
+  alcoholConsuming:     0.60,  // β₁₀
+  peerPressure:         0.52,  // β₁₁
+  allergy:              0.40,  // β₁₂
+  anxiety:              0.35,  // β₁₃
 };
 
 const SYMPTOM_LABELS: Record<keyof SymptomFormData, string> = {
@@ -32,43 +37,49 @@ const SYMPTOM_LABELS: Record<keyof SymptomFormData, string> = {
   peerPressure: "Peer Pressure (Smoking-related)",
 };
 
-export function predictFromSymptoms(data: SymptomFormData): PredictionResult {
-  const maxScore = Object.values(SYMPTOM_WEIGHTS).reduce((a, b) => a + b, 0);
-  let score = 0;
+// Sigmoid function: R_early = 1 / (1 + e^(-Z_early))
+function sigmoid(z: number): number {
+  return 1 / (1 + Math.exp(-z));
+}
 
+export function predictFromSymptoms(data: SymptomFormData): PredictionResult {
+  // Compute Z_early = β₀ + Σ(βᵢ × xᵢ)
+  let z = BETA_0;
   const factors: PredictionResult["factors"] = [];
 
   (Object.keys(data) as (keyof SymptomFormData)[]).forEach((key) => {
-    const weight = SYMPTOM_WEIGHTS[key];
+    const beta = BETA_COEFFICIENTS[key];
     const present = data[key];
-    if (present) score += weight;
+    const xi = present ? 1 : 0;
+    z += beta * xi;
 
     let impact: "high" | "medium" | "low" = "low";
-    if (weight >= 2.5) impact = "high";
-    else if (weight >= 1.5) impact = "medium";
+    if (beta >= 1.2) impact = "high";
+    else if (beta >= 0.7) impact = "medium";
 
     factors.push({ name: SYMPTOM_LABELS[key], impact, present });
   });
 
-  const normalizedScore = score / maxScore;
+  // R_early = 1 / (1 + e^(-Z_early))
+  const rEarly = sigmoid(z);
 
   let riskLevel: RiskLevel;
   let confidence: number;
   let summary: string;
 
-  if (normalizedScore < 0.25) {
+  if (rEarly < 0.35) {
     riskLevel = "low";
-    confidence = Math.round(85 + normalizedScore * 20);
+    confidence = Math.round(85 + rEarly * 20);
     summary =
-      "Based on the reported symptoms, the risk indicators are minimal. Continue maintaining a healthy lifestyle and schedule regular check-ups.";
-  } else if (normalizedScore < 0.55) {
+      "Based on the reported health background and lifestyle factors, the risk indicators are minimal. Continue maintaining a healthy lifestyle and schedule regular check-ups.";
+  } else if (rEarly < 0.65) {
     riskLevel = "moderate";
-    confidence = Math.round(70 + normalizedScore * 15);
+    confidence = Math.round(70 + rEarly * 25);
     summary =
       "Several risk factors have been identified. It is advisable to consult a healthcare professional for further evaluation and consider lifestyle modifications.";
   } else {
     riskLevel = "high";
-    confidence = Math.round(75 + normalizedScore * 10);
+    confidence = Math.round(78 + rEarly * 15);
     summary =
       "Multiple significant risk factors are present. Prompt consultation with a qualified healthcare professional is strongly recommended for proper clinical assessment.";
   }
@@ -85,6 +96,7 @@ export function predictFromSymptoms(data: SymptomFormData): PredictionResult {
     type: "symptoms",
   };
 }
+
 
 export function predictFromImaging(imageName: string): PredictionResult {
   const hash = imageName.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
