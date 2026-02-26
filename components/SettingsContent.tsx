@@ -210,7 +210,7 @@ export default function SettingsContent() {
           <div className="flex justify-between"><span>Build</span><span className="font-medium text-slate-700">February 2026</span></div>
           <div className="flex justify-between"><span>Framework</span><span className="font-medium text-slate-700">Next.js 15 + TailwindCSS</span></div>
           <div className="flex justify-between"><span>Storage</span><span className="font-medium text-slate-700">Local (Browser)</span></div>
-          <div className="flex justify-between"><span>Project</span><span className="font-medium text-slate-700">Bulan High School</span></div>
+          <div className="flex justify-between"><span>Project</span><span className="font-medium text-slate-700">Bulan National High School</span></div>
         </div>
       </div>
     </div>
