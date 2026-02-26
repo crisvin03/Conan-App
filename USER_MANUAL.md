@@ -5,16 +5,17 @@
 
 ## 📋 Table of Contents
 1. [About CONAN App](#about-conan-app)
-2. [Getting Started](#getting-started)
-3. [Assessment Options](#assessment-options)
-4. [Step-by-Step Procedures](#step-by-step-procedures)
-5. [Understanding Results](#understanding-results)
-6. [Risk Assessment Formulas](#risk-assessment-formulas)
-7. [Dashboard Features](#dashboard-features)
-8. [Settings & Accessibility](#settings--accessibility)
-9. [Privacy & Data](#privacy--data)
-10. [Troubleshooting](#troubleshooting)
-11. [Important Disclaimers](#important-disclaimers)
+2. [System Architecture](#system-architecture)
+3. [Getting Started](#getting-started)
+4. [Assessment Options](#assessment-options)
+5. [Step-by-Step Procedures](#step-by-step-procedures)
+6. [Understanding Results](#understanding-results)
+7. [Risk Assessment Formulas](#risk-assessment-formulas)
+8. [Dashboard Features](#dashboard-features)
+9. [Settings & Accessibility](#settings--accessibility)
+10. [Privacy & Data](#privacy--data)
+11. [Troubleshooting](#troubleshooting)
+12. [Important Disclaimers](#important-disclaimers)
 
 ---
 
@@ -31,6 +32,145 @@ CONAN App is a **screening and awareness tool** designed to help assess lung can
 ### Data Source & Methodology
 
 **📍 Predictions are generated using publicly available, anonymized lung cancer patient datasets provided by the National Institutes of Health (NIH). These datasets are carefully curated and de-identified to ensure patient privacy and ethical compliance. Advanced machine learning models, developed and validated using standard clinical evaluation metrics, are applied to identify patterns and generate predictive insights. Model performance is assessed through rigorous validation techniques, including cross-validation and testing on independent datasets, to ensure reliability, robustness, and generalizability of results.**
+
+---
+
+## 🏗️ System Architecture
+
+### Technology Stack
+
+#### Frontend Framework
+- **Next.js 14** with App Router
+- **React 18** with TypeScript
+- **TailwindCSS** for responsive styling
+- **Lucide React** for UI icons
+
+#### Core Libraries
+- **React Context** for global state management
+- **React Hook Form** for form validation
+- **Chart.js** for data visualization
+- **File Upload** with drag-and-drop support
+
+#### Deployment & Infrastructure
+- **Vercel** for hosting and deployment
+- **GitHub** for version control
+- **Responsive Design** for mobile/tablet/desktop
+
+### Application Architecture
+
+#### Component Structure
+```
+conan-app/
+├── components/           # React UI Components
+│   ├── HomeContent.tsx   # Landing page content
+│   ├── SymptomsForm.tsx  # Health background assessment
+│   ├── ImagingForm.tsx   # X-ray upload & analysis
+│   ├── ResultsContent.tsx # Risk assessment results
+│   ├── Sidebar.tsx       # Navigation sidebar
+│   └── Header.tsx        # Top navigation bar
+├── lib/                  # Core business logic
+│   ├── prediction.ts     # Logistic regression algorithms
+│   ├── types.ts          # TypeScript type definitions
+│   └── utils.ts          # Utility functions
+├── app/                  # Next.js App Router pages
+│   ├── page.tsx          # Home page
+│   ├── symptoms/         # Symptom assessment pages
+│   ├── imaging/          # Imaging assessment pages
+│   ├── combined/         # Combined assessment pages
+│   └── dashboard/        # User dashboard pages
+└── public/               # Static assets
+    └── images/           # UI images and icons
+```
+
+#### Data Flow Architecture
+
+```mermaid
+graph TD
+    A[User Input] --> B[Form Validation]
+    B --> C[Risk Assessment Engine]
+    C --> D[Logistic Regression]
+    C --> E[Image Processing]
+    D --> F[Probability Calculation]
+    E --> G[Hash-Based Analysis]
+    F --> H[Risk Classification]
+    G --> H
+    H --> I[Results Display]
+    I --> J[Dashboard Storage]
+    
+    K[NIH Datasets] --> C
+    L[β Coefficients] --> D
+```
+
+### Core Modules
+
+#### 1. Assessment Engine (`lib/prediction.ts`)
+- **Logistic Regression**: Z_early = β₀ + Σ(βᵢ × xᵢ)
+- **Sigmoid Function**: R_early = 1 / (1 + e^(-Z_early))
+- **Risk Classification**: Low/Moderate/High based on probability thresholds
+- **Confidence Scoring**: Dynamic confidence calculation per risk level
+
+#### 2. Form Management
+- **Health Background**: 13 clinical risk factors with toggle inputs
+- **Chest X-Ray**: Image upload with drag-and-drop interface
+- **Combined Assessment**: Integrated analysis of both data types
+
+#### 3. Results Processing
+- **Factor Analysis**: Individual risk factor impact assessment
+- **Visual Representation**: Progress bars and confidence indicators
+- **Clinical Recommendations**: Contextual advice per risk level
+
+#### 4. User Dashboard
+- **Assessment History**: Complete record of all completed assessments
+- **Risk Trends**: Visual chart showing risk level changes over time
+- **Data Management**: View, filter, and organize assessment records
+
+### Security & Privacy
+
+#### Data Protection
+- **Client-Side Processing**: All calculations performed in browser
+- **No Data Persistence**: No personal health data stored on servers
+- **Anonymous Processing**: Images processed without metadata retention
+
+#### Authentication (Future Enhancement)
+- **Secure Login**: Encrypted user authentication system
+- **Session Management**: Secure session handling
+- **Data Encryption**: End-to-end encryption for sensitive data
+
+### Performance Optimization
+
+#### Frontend Optimization
+- **Code Splitting**: Dynamic imports for reduced bundle size
+- **Image Optimization**: Responsive image loading
+- **Caching Strategy**: Browser caching for static assets
+
+#### Algorithm Efficiency
+- **Optimized Calculations**: Efficient logistic regression implementation
+- **Minimal Dependencies**: Lightweight core libraries
+- **Fast Response Times**: Sub-second risk assessment processing
+
+### Scalability Considerations
+
+#### Horizontal Scaling
+- **CDN Integration**: Global content delivery network
+- **Load Balancing**: Distributed request handling
+- **Microservices Ready**: Modular architecture for future expansion
+
+#### Vertical Scaling
+- **Resource Optimization**: Efficient memory usage
+- **Processing Power**: Optimized algorithms for quick calculations
+- **Storage Management**: Efficient data handling and cleanup
+
+### Integration Points
+
+#### External APIs (Future)
+- **Medical Imaging APIs**: Integration with radiology services
+- **Healthcare Systems**: EHR/EMR system connectivity
+- **Clinical Decision Support**: Integration with medical databases
+
+#### Data Sources
+- **NIH Datasets**: Anonymized lung cancer patient data
+- **Clinical Research**: Evidence-based risk factor weighting
+- **Medical Literature**: Updated coefficient derivation
 
 ---
 
