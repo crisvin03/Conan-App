@@ -18,7 +18,6 @@ export interface SymptomFormData {
 
 export interface UserInfo {
   age: number | null;
-  bmi: number | null;
   gender: "male" | "female" | null;
 }
 

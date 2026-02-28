@@ -39,7 +39,6 @@ export default function SymptomsForm() {
   const [form, setForm] = useState<SymptomFormData>(defaultForm);
   const [age, setAge] = useState("");
   const [gender, setGender] = useState<"male" | "female" | "">("");
-  const [bmi, setBmi] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const toggle = (key: keyof SymptomFormData) => {
@@ -49,6 +48,15 @@ export default function SymptomsForm() {
   const selectedCount = Object.values(form).filter(Boolean).length;
 
   const handleSubmit = () => {
+    if (!age || !gender) {
+      alert("Please fill in all personal information fields");
+      return;
+    }
+    if (selectedCount === 0) {
+      alert("Please select at least one symptom");
+      return;
+    }
+    setSubmitted(true);
     const result = predictFromSymptoms(form);
     if (user) saveResult(result);
     sessionStorage.setItem("conan_result", JSON.stringify(result));
@@ -56,10 +64,12 @@ export default function SymptomsForm() {
   };
 
   const handleReset = () => {
-    setForm(defaultForm);
     setAge("");
     setGender("");
-    setBmi("");
+    setSubmitted(false);
+    Object.keys(form).forEach((key) => {
+      setForm((prev) => ({ ...prev, [key]: false }));
+    });
   };
 
   return (
@@ -85,7 +95,7 @@ export default function SymptomsForm() {
       {/* Personal Information */}
       <div className="bg-white border border-slate-200 rounded-2xl p-5">
         <h2 className="text-sm font-semibold text-slate-700 mb-4 pb-2 border-b border-slate-100">Personal Information</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-medium text-slate-600 mb-1.5">Age</label>
             <input
@@ -108,17 +118,6 @@ export default function SymptomsForm() {
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">BMI (kg/m²)</label>
-            <input
-              type="text"
-              inputMode="decimal"
-              value={bmi}
-              onChange={(e) => setBmi(e.target.value.replace(/[^0-9.]/g, ''))}
-              placeholder="e.g., 22.5"
-              className="w-full px-3 py-2 text-sm text-slate-700 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
           </div>
         </div>
       </div>

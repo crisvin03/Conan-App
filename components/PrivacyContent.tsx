@@ -12,7 +12,7 @@ const sections = [
     border: "border-blue-200",
     content: `CONAN App collects the following information when you use it:
 • Symptom inputs (YES/NO answers to 13 risk factors)
-• Optional personal information (age, BMI, gender)
+• Optional personal information (age, gender)
 • Uploaded chest X-ray images (processed locally)
 • Assessment results and risk predictions
 • App settings and preferences

@@ -16,7 +16,6 @@ export default function ImagingForm() {
   const [analyzing, setAnalyzing] = useState(false);
   const [age, setAge] = useState("");
   const [gender, setGender] = useState<"male" | "female" | "">("" );
-  const [bmi, setBmi] = useState("");
 
   const handleFile = (f: File) => {
     if (!f.type.startsWith("image/")) return;
@@ -65,47 +64,6 @@ export default function ImagingForm() {
           <strong>Screening tool only.</strong> This analysis does not constitute a medical diagnosis.
           Always consult a qualified radiologist or physician for clinical interpretation of X-ray images.
         </p>
-      </div>
-
-      {/* Personal Information */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5">
-        <h2 className="text-sm font-semibold text-slate-700 mb-4 pb-2 border-b border-slate-100">Personal Information</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">Age</label>
-            <input
-              type="text"
-              inputMode="numeric"
-              value={age}
-              onChange={(e) => setAge(e.target.value.replace(/[^0-9]/g, ''))}
-              placeholder="e.g., 25"
-              className="w-full px-3 py-2 text-sm text-slate-700 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">Gender</label>
-            <select
-              value={gender}
-              onChange={(e) => setGender(e.target.value as "male" | "female")}
-              className="w-full px-3 py-2 text-sm text-slate-700 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white"
-            >
-              <option value="">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">BMI (kg/m²)</label>
-            <input
-              type="text"
-              inputMode="decimal"
-              value={bmi}
-              onChange={(e) => setBmi(e.target.value.replace(/[^0-9.]/g, ''))}
-              placeholder="e.g., 22.5"
-              className="w-full px-3 py-2 text-sm text-slate-700 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            />
-          </div>
-        </div>
       </div>
 
       <div className="bg-white border border-slate-200 rounded-2xl p-5">

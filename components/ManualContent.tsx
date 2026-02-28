@@ -27,7 +27,7 @@ const sections = [
     bg: "bg-blue-50",
     border: "border-blue-200",
     content: [
-      { step: "1", title: "Enter Personal Info (Optional)", desc: "Provide your age, gender, and BMI for context. These fields are optional." },
+      { step: "1", title: "Enter Personal Info (Optional)", desc: "Provide your age and gender for context. These fields are optional." },
       { step: "2", title: "Answer Symptom Questions", desc: "For each of the 13 risk factors, select YES if you have/experience that factor, or NO if you do not. Click on the card or the YES/NO buttons." },
       { step: "3", title: "Review Your Selections", desc: "The progress bar shows how many factors you have marked as YES. Use the Reset button to start over." },
       { step: "4", title: "Analyze Risk", desc: "Click 'Analyze Risk' to submit. The model will calculate your risk level and confidence score." },

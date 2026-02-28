@@ -31,7 +31,7 @@ export default function PrivacyModal() {
             <h3 className="font-semibold text-slate-800 mb-1">Data Collection</h3>
             <p>
               CONAN App collects symptom inputs, uploaded images, and optional user profile
-              information (age, BMI, gender) solely for the purpose of generating risk assessments.
+              information (age and gender) solely for the purpose of generating risk assessments.
               No data is transmitted to external servers without your explicit consent.
             </p>
           </div>

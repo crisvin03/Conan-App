@@ -8,7 +8,7 @@ const options = [
   {
     href: "/symptoms",
     icon: Activity,
-    title: "Symptom Assessment",
+    title: "Health Background Assessment",
     subtitle: "Option 1",
     description:
       "Answer questions about your symptoms and health history. Our model analyzes 13 key risk factors to estimate your lung cancer risk level.",
@@ -21,7 +21,7 @@ const options = [
   {
     href: "/imaging",
     icon: ImageIcon,
-    title: "X-Ray Analysis",
+    title: "Chest X-Ray Analysis",
     subtitle: "Option 2",
     description:
       "Upload a chest X-ray image for AI-assisted analysis. Our imaging model preprocesses and evaluates the scan for potential abnormalities.",

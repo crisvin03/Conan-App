@@ -282,7 +282,7 @@ export default function ResultsContent() {
             </div>
             <ul className="text-sm text-slate-700 space-y-1">
               <li>• Quit smoking or avoid secondhand smoke exposure</li>
-              <li>• Maintain a healthy BMI through balanced diet and exercise</li>
+              <li>• Maintain a healthy weight through balanced diet and exercise</li>
               <li>• Reduce alcohol consumption</li>
               <li>• Avoid exposure to radon, asbestos, and air pollutants</li>
             </ul>
