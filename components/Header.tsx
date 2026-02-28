@@ -18,8 +18,8 @@ export default function Header() {
       </button>
 
       <Link href="/" className="flex items-center gap-2 mr-auto">
-        <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-          <Activity className="w-4 h-4 text-white" />
+        <div className="w-8 h-8 rounded-lg overflow-hidden">
+          <img src="/logo.png" alt="CONAN App Logo" className="w-full h-full object-cover" />
         </div>
         <span className="font-bold text-slate-800 text-sm hidden sm:block">CONAN App</span>
       </Link>
