@@ -22,7 +22,7 @@ const sections = [
   {
     id: "symptoms",
     icon: Activity,
-    title: "Symptom Assessment (Option 1)",
+    title: "Health Background Assessment (Option 1)",
     color: "text-blue-600",
     bg: "bg-blue-50",
     border: "border-blue-200",
@@ -37,7 +37,7 @@ const sections = [
   {
     id: "imaging",
     icon: ImageIcon,
-    title: "X-Ray Analysis (Option 2)",
+    title: "Chest X-Ray Analysis (Option 2)",
     color: "text-purple-600",
     bg: "bg-purple-50",
     border: "border-purple-200",

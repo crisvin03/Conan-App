@@ -68,13 +68,13 @@ CONAN App is a **screening and awareness tool** designed to help assess lung can
 
 #### Accuracy Metrics
 
-**Symptom Assessment Model**
+**Health Background Assessment Model**
 - **Accuracy**: 87.3%
 - **Sensitivity**: 89.1% (correctly identifying positive cases)
 - **Specificity**: 85.5% (correctly identifying negative cases)
 - **AUC-ROC**: 0.91
 
-**X-Ray Analysis Model**
+**Chest X-Ray Analysis Model**
 - **Accuracy**: 92.7%
 - **Sensitivity**: 94.2%
 - **Specificity**: 91.3%
